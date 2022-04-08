@@ -3,6 +3,9 @@
 <!--next-version-placeholder-->
 
 ## v1.0.0 (2022-04-08)
+
+
+## v1.0.0 (2022-04-08)
 ### Feature
 * **notion_collection_view_filter:** Added ability to dynamically set filters on Notion UI (unoffical api) ([`6950998`](https://github.com/sunnydsouza/notion-api-py/commit/69509988d4e3f6242e0d7cfcce2787ae5b0266bd))
 * **notion_collection_view_filter:** Added ability to dynamically set filters on Notion UI (unoffical api) ([`db9171c`](https://github.com/sunnydsouza/notion-api-py/commit/db9171c502028c808ec26d126dfe49856b60f55e))
