@@ -1,0 +1,94 @@
+---
+name: Build, test, release to github and testpypi.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # in this example, there is a newer version already installed, 3.7.7, so the older version will be downloaded
+        python-version: ['3.8']
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: View python version
+      run: python --version
+    - name: Install Python Poetry
+      uses: abatilo/actions-poetry@v2.1.0
+      with:
+        poetry-version: 1.1.2
+    - name: Configure poetry
+      shell: bash
+      run: python -m poetry config virtualenvs.in-project true
+    - name: View poetry version
+      run: poetry --version
+    - name: Install dependencies
+      run: |
+        python -m poetry install
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        python -m poetry run flake8 . --exclude ./.venv --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        python -m poetry run flake8 . --exclude ./.venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      run: |
+        python -m poetry run pytest
+
+  semantic_release_to_github_testpypi:
+    needs: build_and_test
+    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore') && !contains(github.event.head_commit.message, 'skip ci')
+    runs-on: ubuntu-latest
+    concurrency: release
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: pip install .
+      - run: pip install pre-commit pytest python-semantic-release requests==2.27.1 urllib3==1.26.8
+      - run: pip list
+#      - run: pytest tests
+      - run: git config --global user.name "github-actions"
+      - run: git config --global user.email "action@github.com"
+      - name: Perform a semantic version release, publish to github release and testpypi
+        run: SKIP=commitizen semantic-release publish
+        env:
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
+  release_to_testpypi:
+    needs: semantic_release_to_github_testpypi
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    concurrency: release
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Python Poetry
+        uses: abatilo/actions-poetry@v2.1.0
+        with:
+          poetry-version: 1.1.2
+      - name: Configure poetry
+        shell: bash
+        run: python -m poetry config virtualenvs.in-project true
+      - name: View poetry version
+        run: poetry --version
+      - name: Install dependencies
+        run: |
+          python -m poetry install
+      - name: Build dist with poetry
+        run: |
+          python -m poetry build
+      - name: Publish package to pypi repository
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/

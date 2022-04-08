@@ -1,0 +1,42 @@
+---
+name:  On demand release to pypi
+on:
+  workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually, to release to pypi
+    inputs:
+      repository:
+        description: 'Which repo to publish to?'
+        required: true
+        default: 'pypi'
+
+jobs:
+  publish_to_pypi:
+    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore:')
+    runs-on: ubuntu-latest
+    concurrency: release
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Python Poetry
+        uses: abatilo/actions-poetry@v2.1.0
+        with:
+          poetry-version: 1.1.2
+      - name: Configure poetry
+        shell: bash
+        run: python -m poetry config virtualenvs.in-project true
+      - name: View poetry version
+        run: poetry --version
+      - name: Install dependencies
+        run: |
+          python -m poetry install
+      - name: Build dist with poetry
+        run: |
+          python -m poetry build
+      - name: Test with pytest
+        run: |
+          python -m poetry run python -m pytest -v tests
+      - name: Publish package to pypi repository
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
