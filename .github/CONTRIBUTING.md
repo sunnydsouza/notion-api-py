@@ -1,4 +1,4 @@
-# Contributing to notion-wrapper
+# Contributing to notion-api-py
 
 🙌 Firstly, thanks for taking the time to contribute! 🙌
 
@@ -63,8 +63,8 @@ Specific Branching strategy has been defined on this project where **NO COMMITS*
 
 There are 3 main branches:
 - `develop`: All feature branches will be merged into this branch after `Pull Request` review.
-- `release`: When `develop` branch is clean and all CI tests are **green**, then `develop` branch will be merged into this branch via `Pull Request`. After merge, a `beta` release of version would published to Maven central.
-- `main` or `master`: After successful Beta testing, `release` branch will then be merged into `master` via `Pull Request`. After merge, final release version cut would published to Maven central.
+- `release`: When `develop` branch is clean and all CI tests are **green**, then `develop` branch will be merged into this branch via `Pull Request`. After merge, a `beta` release of version would published to Maven central/Pypi.
+- `main` or `master`: After successful Beta testing, `release` branch will then be merged into `master` via `Pull Request`. After merge, final release version cut would published to Maven central/Pypi
 
 ### Working on open tickets
 
@@ -95,7 +95,7 @@ For assuring quality of framework to prospective users, test coverage plays an i
 
 ## Issues and Suggestions.
 
-If you find any issue in the framework or you have any suggestions for enhancement, please feel free to raise a ticket for it. Together we can make the framework even more effective and easy for other Test Engineers to use it in their daily automation tasks.
+If you find any issue in this project or you have any suggestions for enhancement, please feel free to raise a ticket for it. Together we can make this even more effective and easy for other Engineers to use it in their daily automation tasks.
 
 [sign-commit]: https://help.github.com/en/articles/signing-commits
 [fork]: https://help.github.com/articles/fork-a-repo/
