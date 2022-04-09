@@ -407,7 +407,7 @@ This is an exciting option, which allows you auto set filters on particular `vie
 
 To know more about Notion database view, refer [https://www.notion.so/help/guides/using-database-views](https://www.notion.so/help/guides/using-database-views)
 
-![Untitled](Detailed%20d%2016435/Untitled.png)
+![collection view filter](docs/images/collection_view_filter1.png)
 
 While the official Notion Api provides an option to `query` databases - [https://developers.notion.com/reference/post-database-query](https://developers.notion.com/reference/post-database-query)
 
@@ -419,7 +419,7 @@ Example use cases
 
 **Use case 2:** I use Notion for project management where I create Project → Features → Tasks. I have templates for each of these. So whenever I create a new feature using the template, it brings in the linked task database with the `Related Features` filter applied. However, I would also like “auto” apply the `Tags`, `Projects` and `Release` relations, as I know them based on the Feature page we are on. As of this writing, Notion provides no way of doing this.
 
-![Untitled](Detailed%20d%2016435/Untitled%201.png)
+![collection view filter](docs/images/collection_view_filter2.png)
 
 I reverse engineered the api calls from Notion to thier server to see what they are doing when  we apply filter operations to a view
 
