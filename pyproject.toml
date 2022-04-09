@@ -9,7 +9,6 @@ license = "MIT"
 python = "^3.6"
 requests = "^2.27"
 urllib3 = "^1.26"
-flake8= "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.4"
