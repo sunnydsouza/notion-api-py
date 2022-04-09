@@ -5,6 +5,8 @@ description = "A wrapper around notion api allowing you to create objects for yo
 authors = ["sunnydsouza <dsouzasunny1436@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository= "https://github.com/sunnydsouza/notion-api-py"
+documentation="https://github.com/sunnydsouza/notion-api-py/blob/main/README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6"
