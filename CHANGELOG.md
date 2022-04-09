@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2022-04-09)
+### Fix
+* **github actions:** Added poetry add flake8 to ci pipeline. Other minor fixes. ([`fe0f605`](https://github.com/sunnydsouza/notion-api-py/commit/fe0f605890cf6698c5347b129acea3af45290996))
+* **pyproject:** Removed flake8 from package dependencies ([`02316b5`](https://github.com/sunnydsouza/notion-api-py/commit/02316b508977cac24398f6d11628ce39347f1dcc))
+* **pyproject:** Removed flake8 from package dependencies ([`f4eded1`](https://github.com/sunnydsouza/notion-api-py/commit/f4eded152cd85af34629323b813ba3d204f5c79a))
+
 
 ## v1.0.0 (2022-04-08)
 ### Feature

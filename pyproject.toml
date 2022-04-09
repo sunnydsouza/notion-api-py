@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notion-api-py"
-version = "1.0.0"
+version = "1.0.1"
 description = "A wrapper around notion api allowing you to create objects for your databases/pages and easily perform add/update/delete/filter operations in a more readable way"
 authors = ["sunnydsouza <dsouzasunny1436@gmail.com>"]
 license = "MIT"
