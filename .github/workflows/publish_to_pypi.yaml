@@ -33,7 +33,7 @@ jobs:
           python -m poetry build
       - name: Test with pytest
         run: |
-          python -m poetry run python -m pytest -v tests
+          python -m poetry run pytest
       - name: Publish package to pypi repository
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
