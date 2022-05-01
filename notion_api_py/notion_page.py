@@ -1,8 +1,8 @@
 import json
 import logging
 
-from notion_api import NotionApi
-from notion_properties import NotionProperties, NotionProperty
+from notion_api_py.notion_api import NotionApi
+from notion_api_py.notion_properties import NotionProperties, NotionProperty
 
 NotionPropertiesMap={
     'number': lambda k,v: NotionProperty(k).number(v),
