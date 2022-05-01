@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.2 (2022-05-01)
+### Fix
+* **notion_api_py:** Minor fixes in import statements ([`6f0fa67`](https://github.com/sunnydsouza/notion-api-py/commit/6f0fa67b6b6bc1bb63b30b69527c997676409a8b))
+
+### Documentation
+* **readme:** Updated docs with images. ([`aa91942`](https://github.com/sunnydsouza/notion-api-py/commit/aa91942c7143e59ca27b73b041f682e507b6561e))
+
 ## v1.0.1 (2022-04-09)
 ### Fix
 * **github actions:** Added poetry add flake8 to ci pipeline. Other minor fixes. ([`fe0f605`](https://github.com/sunnydsouza/notion-api-py/commit/fe0f605890cf6698c5347b129acea3af45290996))
