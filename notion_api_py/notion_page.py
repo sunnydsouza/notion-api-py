@@ -1,8 +1,8 @@
 import json
 import logging
 
-from notion_api import NotionApi
-from notion_properties import NotionProperties, NotionProperty
+from notion_api_py.notion_api import NotionApi
+from notion_api_py.notion_properties import NotionProperties, NotionProperty
 
 NotionPropertiesMap={
     'number': lambda k,v: NotionProperty(k).number(v),
@@ -32,7 +32,7 @@ class NotionPage(NotionApi):
             # print("existing_page_properties",self.existing_page_properties)
 
     def get_property(self, property_name):
-        return NotionProperties(self.get_all_properties()).get_property(property_name)
+        return NotionProperties(self.__get_all_properties()).get_property(property_name)
 
 
     def update_page(self, icon=None, external_icon_url=None
@@ -56,7 +56,7 @@ class NotionPage(NotionApi):
         self.logger.log(logging.DEBUG, "Building properties body using build_properties -> %s", properties)
         notion_properties = []
         # This is field name -> field type map for the current database
-        property_type_map=self.get_property_type_map()
+        property_type_map=self.__get_property_type_map()
         for key, value in properties.items():
             self.logger.debug("For property %s == %s" % (key, value))
             individual_property_dict=NotionPropertiesMap.get(property_type_map[key])(key, value)
@@ -69,15 +69,15 @@ class NotionPage(NotionApi):
         self.logger.debug("notion_properties: %s",str(notion_properties))
         return NotionProperties(properties=notion_properties).get_json_string()
 
-    def get_all_properties(self):
+    def __get_all_properties(self):
         if self.existing_page_properties== None:
             self.logger.debug("self.database_properties is None. Hence retrieving from NotionApi")
             self.existing_page_properties = self.retrieve_page_properties(self.existing_id).json()["properties"]
         return self.existing_page_properties
 
-    def get_property_type_map(self):
+    def __get_property_type_map(self):
         self.property_type_map={}
-        for key, value in self.get_all_properties().items():
+        for key, value in self.__get_all_properties().items():
             self.property_type_map[key] = value["type"]
         self.logger.info("Pages property_type_map generated -> "+str(self.property_type_map))
         return self.property_type_map

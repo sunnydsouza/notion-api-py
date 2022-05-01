@@ -1,6 +1,6 @@
 import json
 import logging
-import notion_endpoints
+import notion_api_py.notion_endpoints as notion_endpoints
 import requests
 
 
